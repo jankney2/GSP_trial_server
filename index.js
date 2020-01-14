@@ -1,16 +1,18 @@
 const express=require('express')
 const app=express()
 const massive=require('massive')
+require('dotenv').config()
+const {CONNECTION_STRING, PORT}=process.env
 
-
-
-massive(CONNECTION_STRING).then((db)=>{
-app.set('db', db)
+massive({connectionString:CONNECTION_STRING, 
+ssl:true}).then((db)=>{
+app.set(db, 'db')
 console.log('database connected')
 })
 
 
 
-app.listen(7909, ()=>{
-console.log('listening on 7909')
+app.listen(PORT, ()=>{
+console.log('listening on ', PORT)
+
 })
